@@ -1,7 +1,7 @@
 /**
 * Atlassian Community answer
 * <a href="https://community.atlassian.com/t5/Jira-Service-Desk-questions/Cloning-field-configuration-scheme-and-field-configuration-using/qaq-p/1449149" target="_blank">Cloning field configuration scheme (and field configuration) using groovy</a>
-* @author   Tamás Baglyas
+* @author   Tamás Baglyas - https://github.com/tbaglyas
 * @version  1.0
 * @since    2020-08-05
 */
