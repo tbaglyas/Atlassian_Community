@@ -15,31 +15,30 @@ import com.atlassian.jira.issue.fields.config.FieldConfigScheme.Builder;
 import com.atlassian.jira.issue.fields.ConfigurableField;
 import com.atlassian.jira.issue.context.JiraContextNode;
 import com.atlassian.jira.issue.fields.config.FieldConfig;
+import com.atlassian.jira.issue.fields.config.manager.FieldConfigSchemeManager;
 
 ProjectManager projectManager = ComponentAccessor.getProjectManager();
 
-//Create a project objects (Source & Target)
-Project jiraProjectSourceObj = projectManager.getProjectObjByName("SD_TEMPLATE");
-Project jiraProjectTargetObj = projectManager.getProjectObjByName("SD_TEST");
+//Create Source and Target project object
+Project sourceProject = projectManager.getProjectObjByName("SD_TEMPLATE");
+Project targetProject = projectManager.getProjectObjByName("SD_TEST");
 
+//New issue types
 IssueTypeSchemeManager issueTypeSchemeManager = ComponentAccessor.getIssueTypeSchemeManager();
-
-//Return a issue type scheme object
-FieldConfigScheme targetFieldConfigScheme = issueTypeSchemeManager.getConfigScheme(jiraProjectTargetObj);
-
-//Get issue types list
-Collection<IssueType> issueTypes = issueTypeScheme.getIssueTypesForScheme(targetFieldConfigScheme);
+FieldConfigScheme targetFieldConfigScheme = issueTypeSchemeManager.getConfigScheme(targetProject);
+List<IssueType> issueTypes = (List<IssueType>)issueTypeSchemeManager.getIssueTypesForScheme(targetFieldConfigScheme);
 
 //New FieldConfigScheme
-FieldConfigScheme sourceFieldConfigScheme = issueTypeScheme.getConfigScheme(jiraProjectSourceObj)
+FieldConfigScheme sourceFieldConfigScheme = issueTypeSchemeManager.getConfigScheme(sourceProject)
 FieldConfigScheme.Builder fieldConfigSchemeBuilder = new FieldConfigScheme.Builder(sourceFieldConfigScheme);
 fieldConfigSchemeBuilder.setName("sd_name");
 fieldConfigSchemeBuilder.setDescription("sd_desc");
-FieldConfigScheme fieldConfigScheme = fieldConfigSchemeBuilder.toFieldConfigScheme();
+FieldConfigScheme newConfigScheme = fieldConfigSchemeBuilder.toFieldConfigScheme();
 
 //Get parameters
-ConfigurableField field = fieldConfigScheme.getField();
-List<JiraContextNode> contexts = fieldConfigScheme.getContexts();
-FieldConfig fieldConfig = fieldConfigScheme.getOneAndOnlyConfig();
+ConfigurableField field = newConfigScheme.getField();
+List<JiraContextNode> contexts = newConfigScheme.getContexts();
 
-FieldConfigScheme newFieldConfigScheme = fieldConfigSchemeManager.createFieldConfigScheme(fieldConfigScheme, contexts, issueTypes, field);
+FieldConfigSchemeManager fieldConfigSchemeManager = ComponentAccessor.getFieldConfigSchemeManager();
+
+FieldConfigScheme newFieldConfigScheme = fieldConfigSchemeManager.createFieldConfigScheme(newConfigScheme, contexts, issueTypes, field);
