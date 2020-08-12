@@ -1,0 +1,22 @@
+#**
+    Atlassian Community answer
+    <a href="https://community.atlassian.com/t5/Confluence-questions/How-do-I-just-display-count-of-Child-pages-without-listing-all/qaq-p/1454582" target="_blank">How do I just display count of Child pages without listing all the pages ?
+    </a>
+        @author Tamás Baglyas - https://github.com/tbaglyas
+        @version 1.0
+        @since 2020-08-12
+*#
+## Macro title: Count of the descendants
+## Macro has a body: N
+## Body processing: No body, no processing.
+## Output: Count of the descendants of the current page.
+##
+## Developed by: Tamás Baglyas - https://github.com/tbaglyas
+## Date created: 12/08/2020
+## Installed by: Tamás Baglyas - https://github.com/tbaglyas
+
+## @noparams
+
+#set ($descendantsCount = $pageManager.getDescendants($content).size())
+
+$descendantsCount
