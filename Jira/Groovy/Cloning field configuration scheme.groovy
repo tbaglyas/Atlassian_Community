@@ -19,7 +19,7 @@ import com.atlassian.jira.issue.fields.config.manager.FieldConfigSchemeManager;
 
 ProjectManager projectManager = ComponentAccessor.getProjectManager();
 
-//Create Source and Target project object
+//Create Source and Target project objects
 Project sourceProject = projectManager.getProjectObjByName("SD_TEMPLATE");
 Project targetProject = projectManager.getProjectObjByName("SD_TEST");
 
